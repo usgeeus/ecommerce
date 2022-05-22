@@ -1,7 +1,14 @@
-import data from "../data.js";
 const ProductsPage = {
-  render: () => {
-    const { products } = data;
+  render: async () => {
+    const response = await fetch("http://localhost:5000/api/products", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response || !response.ok) {
+      return `<div>products 데이터 가져오기 에러</div>`;
+    }
+    const products = await response.json();
     return `
             <ul class="products">
             ${products

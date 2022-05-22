@@ -7,7 +7,7 @@ const routes = {
   "/": ProductsPage,
   "product/:id": ProductPage,
 };
-const router = () => {
+const router = async () => {
   const request = parseRequestUrl();
   const parseUrl =
     (request.resource ? `${request.resource}` : "/") +
@@ -16,7 +16,7 @@ const router = () => {
   const page = routes[parseUrl] ? routes[parseUrl] : Error404Page;
   console.log(parseUrl);
   const main = document.getElementById("main-container");
-  main.innerHTML = page.render();
+  main.innerHTML = await page.render();
 };
 window.addEventListener("load", router);
 window.addEventListener("hashchange", router);
