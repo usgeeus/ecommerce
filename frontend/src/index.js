@@ -1,7 +1,8 @@
-import ProductsPage from "./src/pages/ProductsPage.js";
-import ProductPage from "./src/pages/ProductPage.js";
-import { parseRequestUrl } from "./src/utils/parseRequestUrl.js";
-import Error404Page from "./src/pages/Error404Page.js";
+import ProductsPage from "./pages/ProductsPage.js";
+import ProductPage from "./pages/ProductPage.js";
+import { parseRequestUrl } from "./utils/parseRequestUrl.js";
+import Error404Page from "./pages/Error404Page.js";
+import "./style.css";
 
 const routes = {
   "/": ProductsPage,
@@ -14,7 +15,6 @@ const router = async () => {
     (request.id ? "/:id" : "") +
     (request.verb ? `${request.verb}` : "");
   const page = routes[parseUrl] ? routes[parseUrl] : Error404Page;
-  console.log(parseUrl);
   const main = document.getElementById("main-container");
   main.innerHTML = await page.render();
 };

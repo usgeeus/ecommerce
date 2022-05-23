@@ -1,14 +1,19 @@
+import axios from "axios";
 const ProductsPage = {
   render: async () => {
-    const response = await fetch("http://localhost:5000/api/products", {
+    const response = await axios({
+      url: "http://localhost:5000/api/products",
       headers: {
         "Content-Type": "application/json",
       },
     });
-    if (!response || !response.ok) {
+    console.log(response);
+    console.log(response.statusText !== "OK");
+    if (!response || response.statusText !== "OK") {
       return `<div>products 데이터 가져오기 에러</div>`;
     }
-    const products = await response.json();
+
+    const products = response.data;
     return `
             <ul class="products">
             ${products
@@ -17,7 +22,7 @@ const ProductsPage = {
                 <li>
                     <div class="product">
                         <a href="/#/product/${product._id}">
-                            <img src="${product.image}" alt="${product.name}"/>
+                            <img src= "${product.image}"  alt="${product.name}"/>
                         </a>
                         <div class="product-name">
                             <a href="/#/product/1">
